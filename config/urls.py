@@ -20,10 +20,14 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from product.viewsets.ProductViewSet import ProductViewSet
 
+from orders.viewsets import OrderViewSet
+
+
 
 
 router = DefaultRouter()
 router.register(r'products', ProductViewSet, basename='product')
+router.register(r'orders', OrderViewSet)
 
 urlpatterns = [
     path("__debug__/", include(debug_toolbar.urls)),
