@@ -14,12 +14,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+import debug_toolbar
 from django.contrib import admin
-from django.urls import path
-from product.views import ProductListCreateView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from product.viewsets.ProductViewSet import ProductViewSet
+
+from orders.viewsets import OrderViewSet
+
+
+
+
+router = DefaultRouter()
+router.register(r'products', ProductViewSet, basename='product')
+router.register(r'orders', OrderViewSet)
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("api/products/", ProductListCreateView.as_view(), name="product-list-create"),
+    path("__debug__/", include(debug_toolbar.urls)),
+    path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
 ]
+
