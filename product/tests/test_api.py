@@ -13,3 +13,6 @@ def test_create_product():
     assert response.status_code == 201
     assert Product.objects.count() == 1
     assert Product.objects.first().name == "Laptop"
+
+
+
